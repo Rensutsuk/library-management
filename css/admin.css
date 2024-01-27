@@ -1,0 +1,309 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@300;400;500;600&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Roboto Slab', serif;
+}
+
+:root {
+  --primary: #800000;
+  --primary-dark: #4d0000;
+  --secondary: #dba729;
+  --secondary-dark: #a7801f;
+  --text: #FFFFFF;
+}
+
+body {
+  background-color: #000000;
+  margin: 0;
+  padding: 0;
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background-image: url("../assets/home_bg.jpg");
+  background-size: cover;
+  filter: blur(10px);
+  opacity: .6;
+  z-index: -1;
+}
+
+.navbar {
+  display: flex;
+  flex-direction: row;
+  position: sticky;
+  justify-content: space-between;
+  padding: .5rem;
+  color: var(--text);
+  background-color: var(--primary);
+}
+
+.navbar .nav-links {
+  display: flex;
+  justify-content: end;
+  align-items: center;
+  margin: 1rem;
+}
+
+.nav-links h2 a {
+  color: var(--text);
+  padding: 10px;
+  font-size: 25px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  text-decoration: none;
+  background-color: transparent;
+  transition: background-color 0.3s ease, color 0.3s ease;
+  border-radius: 10px;
+}
+
+.nav-links h2 a:hover {
+  background-color: var(--secondary);
+  color: var(--text);
+}
+
+.navbar .logo-head {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  height: 100px;
+}
+
+.logo-head .logo {
+  height: 120px;
+  width: 120px;
+  padding: 1rem;
+}
+
+.logo-head .logo-title {
+  color: var(--text);
+}
+
+.logo-title h1 {
+  font-size: 25px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+  margin-bottom: -10px;
+}
+
+.logo-title h3 {
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 300;
+  line-height: normal;
+  margin-top: 10px;
+}
+
+.navbar .nav-links {
+  display: flex;
+  justify-content: end;
+  align-items: center;
+  margin: 1rem;
+}
+
+.user-dropdown {
+  display: flex;
+  align-items: center;
+  position: relative;
+  cursor: pointer;
+  margin-right: .5rem;
+}
+
+.user-icon {
+  max-width: 80px;
+  padding: 1rem;
+}
+
+.user-options {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+  position: absolute;
+  top: 70px;
+  right: 0;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  display: none;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.username {
+  font-size: 25px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  color: var(--text);
+}
+
+.user-options li {
+  padding: 10px;
+  text-align: center;
+  color: var(--text);
+  font-weight: 500;
+}
+
+.user-options.active {
+  display: block;
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.dashboard-content {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+  gap: 1rem;
+  margin-bottom: 3rem;
+}
+
+.content {
+  display: block;
+  margin: 3rem;
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin: auto;
+  min-width: 350px;
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  margin-top: 50px;
+}
+
+.card .card-header {
+  background-color: var(--primary);
+  color: var(--text);
+
+  padding: 1rem;
+  margin-bottom: 15px;
+}
+
+.card .card-body a {
+  color: var(--text);
+  padding: 10px;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  text-decoration: none;
+  background-color: var(--secondary);
+  transition: background-color 0.3s ease, color 0.3s ease;
+  border-radius: 10px;
+}
+
+.card .card-body a:hover {
+  background-color: var(--secondary-dark);
+  color: var(--text);
+}
+
+.card .form-group {
+  margin-bottom: 10px;
+}
+
+.card label {
+  display: block;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+  margin-bottom: 5px;
+}
+
+.card input,
+textarea {
+  width: 100%;
+  padding: 8px;
+  box-sizing: border-box;
+  margin-bottom: 10px;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  resize: none;
+}
+
+.card button {
+  background-color: var(--secondary);
+  color: #fff;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  transition: background-color 0.3s ease;
+}
+
+.card button:hover {
+  background-color: var(--secondary-dark);
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.table th,
+.table td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: left;
+}
+
+.table td {
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+
+.table th {
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+  background-color: var(--secondary);
+}
+
+h1 {
+  font-size: 25px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+}
+
+p {
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  margin-bottom: 2rem;
+}
+
+footer {
+  background-color: var(--primary);
+  color: var(--text);
+  text-align: center;
+  padding: 20px;
+}
+
+footer p {
+  margin: 5px 0;
+  margin-top: auto;
+}

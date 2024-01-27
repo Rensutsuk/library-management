@@ -1,0 +1,160 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@300;400;500;600&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Roboto Slab', serif;
+}
+
+:root {
+  --primary: #800000;
+  --primary-dark: #4d0000;
+  --secondary: #dba729;
+  --secondary-dark: #a7801f;
+  --text: #FFFFFF;
+}
+
+body {
+  background-color: #000000;
+  margin: 0;
+  padding: 0;
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background-image: url("../assets/home_bg.jpg");
+  background-size: cover;
+  filter: blur(10px);
+  opacity: .6;
+  z-index: -1;
+}
+
+.navbar {
+  overflow: hidden;
+  display: flex;
+  position: sticky;
+  justify-content: space-between;
+  padding: .5rem;
+  background-color: var(--primary);
+}
+
+.navbar .logo-head {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  height: 100px;
+}
+
+.logo-head .logo {
+  height: 120px;
+  width: 120px;
+  padding: 1rem;
+}
+
+.logo-head .logo-title {
+  color: var(--text);
+}
+
+.logo-title h1 {
+  font-size: 25px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+  margin-bottom: -10px;
+}
+
+.logo-title h3 {
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 300;
+  line-height: normal;
+  margin-top: 10px;
+}
+
+.navbar .nav-links {
+  display: flex;
+  justify-content: end;
+  align-items: center;
+  margin: 1rem;
+}
+
+.nav-links a {
+  color: var(--text);
+  padding: 10px;
+  font-size: 25px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  text-decoration: none;
+  background-color: transparent;
+  transition: background-color 0.3s ease, color 0.3s ease;
+  border-radius: 10px;
+}
+
+.nav-links a:hover {
+  background-color: var(--secondary);
+  color: var(--text);
+}
+
+.content {
+  display: flexbox;
+  margin: 5rem;
+  opacity: 0;
+  transform: translateX(-100%);
+  transition: opacity 0.5s ease, transform 0.5s ease;
+  color: var(--text);
+}
+
+.content.loaded {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+h1 {
+  font-size: 25px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+}
+
+p {
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  margin-bottom: 2rem;
+}
+
+.director-section {
+  display: flex;
+  flex-direction: row; /* Change to row to place image beside the paragraph */
+  align-items: center; /* Align items vertically in the center */
+  margin-top: 2rem;
+}
+
+.director-content {
+  flex: 1; /* Allow the content to take up the available space */
+}
+
+.director-image {
+  max-width: 15%;
+  margin-left: 2rem; 
+}
+
+footer {
+  background-color: var(--primary);
+  color: var(--text);
+  text-align: center;
+  padding: 20px;
+}
+
+footer p {
+  margin: 5px 0;
+  margin-top: auto;
+}
