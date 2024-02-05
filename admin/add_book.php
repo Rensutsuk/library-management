@@ -1,30 +1,9 @@
 <?php
 require("functions.php");
 session_start();
-
-// Fetch data from the database
-$connection = mysqli_connect("localhost", "admin", "password");
-$db = mysqli_select_db($connection, "lms");
-$name = "";
-$email = "";
-$mobile = "";
-
-// Use a prepared statement to make the query safer
-$query = "SELECT * FROM admins WHERE email = ?";
-$stmt = mysqli_prepare($connection, $query);
-mysqli_stmt_bind_param($stmt, "s", $_SESSION['email']);
-mysqli_stmt_execute($stmt);
-$query_run = mysqli_stmt_get_result($stmt);
-
-while ($row = mysqli_fetch_assoc($query_run)) {
-  $name = $row['name'];
-  $email = $row['email'];
-  $mobile = $row['mobile'];
-}
 ?>
 
-<!DOCTYPE html>
-<html lang="en">
+<!DOCTYPE html> <html lang="en">
 
 <head>
   <meta charset="UTF-8" />
@@ -85,18 +64,12 @@ if (isset($_POST['add_book'])) {
   $connection = mysqli_connect("localhost", "admin", "password");
   $db = mysqli_select_db($connection, "lms");
 
-  // Use prepared statement to make the query safer
   $query = "INSERT INTO books VALUES (null, ?, ?, ?, ?, ?)";
   $stmt = mysqli_prepare($connection, $query);
-
-  // Bind parameters
   mysqli_stmt_bind_param($stmt, "sssid", $_POST['book_name'], $_POST['book_author'], $_POST['book_category'], $_POST['book_no'], $_POST['book_price']);
-
-  // Execute the statement
   $query_run = mysqli_stmt_execute($stmt);
 
   if ($query_run) {
-    // Query executed successfully
     ?>
     <script type="text/javascript">
       alert("Book added successfully...");
@@ -104,13 +77,9 @@ if (isset($_POST['add_book'])) {
     </script>
     <?php
   } else {
-    // Error in query execution
     echo "Error adding book: " . mysqli_error($connection);
   }
-
-  // Close the statement
   mysqli_stmt_close($stmt);
-  // Close the connection
   mysqli_close($connection);
 }
 ?>

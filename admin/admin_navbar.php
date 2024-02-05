@@ -15,7 +15,7 @@
     <div class="user-dropdown" onclick="toggleUserOptions()">
       <img src="../assets/user-icon.png" alt="User Icon" class="user-icon">
       <span class="username">
-        <?php echo $_SESSION['admin_name'];?>
+        <?php echo $_SESSION['admin_name']; ?>
       </span>
       <ul id="userOptions" class="user-options">
         <li><a href="view_profile.php">View Profile</a></li>

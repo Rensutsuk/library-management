@@ -1,15 +1,5 @@
 <?php
 session_start();
-$connection = mysqli_connect("localhost", "admin", "password");
-$db = mysqli_select_db($connection, "lms");
-$book_name = "";
-$author = "";
-$category = "";
-$book_no = "";
-$price = "";
-$query = "SELECT books.book_name, books.book_no, books.book_price, authors.author_name 
-          FROM books 
-          LEFT JOIN authors ON books.author_id = authors.author_id";
 ?>
 
 <!DOCTYPE html>
@@ -40,7 +30,7 @@ $query = "SELECT books.book_name, books.book_no, books.book_price, authors.autho
       <div class="card-header">
         <h1>Registered Books Detail</h1>
         <div class="header-button">
-          <a href="add_book.php">
+          <a href="add_author.php">
             <i class="fa-solid fa-plus"></i>
           </a>
           <a href="manage_book.php">
@@ -53,29 +43,24 @@ $query = "SELECT books.book_name, books.book_no, books.book_price, authors.autho
           <table id="myTable" class="table">
             <thead>
               <tr>
-                <th>Name</th>
-                <th>Author</th>
-                <th>Price</th>
-                <th>Book Number</th>
+                <th>Author ID</th>
+                <th>Author Name</th>
               </tr>
             </thead>
             <tbody>
               <?php
+              $connection = mysqli_connect("localhost", "admin", "password");
+              $db = mysqli_select_db($connection, "lms");
+              $query = "SELECT * FROM authors";
               $query_run = mysqli_query($connection, $query);
               while ($row = mysqli_fetch_assoc($query_run)) {
                 ?>
                 <tr>
                   <td>
-                    <?php echo $row['book_name']; ?>
+                    <?php echo $row['author_id']; ?>
                   </td>
                   <td>
                     <?php echo $row['author_name']; ?>
-                  </td>
-                  <td>
-                    <?php echo $row['book_price']; ?>
-                  </td>
-                  <td>
-                    <?php echo $row['book_no']; ?>
                   </td>
                 </tr>
                 <?php

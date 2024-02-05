@@ -1,5 +1,4 @@
 <?php
-require("functions.php");
 session_start();
 
 if (isset($_POST['add_cat'])) {
@@ -43,7 +42,7 @@ if (isset($_POST['add_cat'])) {
   <div class="content">
     <div class="card">
       <div class="card-header">
-        <h1>Add Books</h1>
+        <h1>Add Category</h1>
       </div>
       <div class="card-body">
         <form action="" method="post">
