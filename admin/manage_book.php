@@ -1,5 +1,4 @@
 <?php
-require("functions.php");
 session_start();
 ?>
 
@@ -51,7 +50,7 @@ session_start();
           <?php
           $connection = mysqli_connect("localhost", "admin", "password");
           $db = mysqli_select_db($connection, "lms");
-          $query = "SELECT books.*, authors.author_name, category.cat_name 
+          $query = "SELECT books.*, authors.author_name, category.cat_name
                 FROM books 
                 INNER JOIN authors ON books.author_id = authors.author_id 
                 INNER JOIN category ON books.cat_id = category.cat_id";
@@ -76,9 +75,9 @@ session_start();
                   <?php echo $row['book_price']; ?>
                 </td>
                 <td>
-                  <button class="btn" name=""><a href="edit_book.php?bn=<?php echo $row['book_no']; ?>">
+                  <button class="btn" name=""><a href="edit_book.php?book_id=<?php echo $row['book_id']; ?>">
                       <i class="fa-solid fa-pen-to-square"></i></a></button>
-                  <button class="btn"><a href="delete_book.php?bn=<?php echo $row['book_no']; ?>">
+                  <button class="btn"><a href="delete_book.php?book_id=<?php echo $row['book_id']; ?>">
                       <i class="fa-solid fa-trash"></i></a></button>
                 </td>
               </tr>

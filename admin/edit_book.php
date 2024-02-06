@@ -8,7 +8,7 @@ $book_no = "";
 $author_id = "";
 $cat_id = "";
 $book_price = "";
-$query = "select * from books where book_no = $_GET[bn]";
+$query = "select * from books where book_id = $_GET[book_id]";
 $query_run = mysqli_query($connection, $query);
 while ($row = mysqli_fetch_assoc($query_run)) {
   $book_name = $row['book_name'];

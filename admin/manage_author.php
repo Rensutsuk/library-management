@@ -28,13 +28,10 @@ session_start();
   <div class="content">
     <div class="card">
       <div class="card-header">
-        <h1>Author Details</h1>
+        <h1>Manage Author Details</h1>
         <div class="header-button">
           <a href="add_author.php">
             <i class="fa-solid fa-plus"></i>
-          </a>
-          <a href="manage_author.php">
-            <i class="fa-solid fa-pen-to-square"></i>
           </a>
         </div>
       </div>
@@ -45,6 +42,7 @@ session_start();
               <tr>
                 <th>Author ID</th>
                 <th>Author Name</th>
+                <th>Actions</th>
               </tr>
             </thead>
             <tbody>
@@ -61,6 +59,12 @@ session_start();
                   </td>
                   <td>
                     <?php echo $row['author_name']; ?>
+                  </td>
+                  <td>
+                    <button class="btn" name=""><a href="edit_author.php?auth_id=<?php echo $row['author_id']; ?>">
+                        <i class="fa-solid fa-pen-to-square"></i></a></button>
+                    <button class="btn"><a href="delete_author.php?auth_id=<?php echo $row['author_id']; ?>">
+                        <i class="fa-solid fa-trash"></i></a></button>
                   </td>
                 </tr>
                 <?php

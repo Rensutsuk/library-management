@@ -1,15 +1,3 @@
-<?php
-session_start();
-
-if (isset($_POST['issue_book'])) {
-  $connection = mysqli_connect("localhost", "admin", "password");
-  $db = mysqli_select_db($connection, "lms");
-  $query = "insert into issued_books values(null,$_POST[book_no],'$_POST[book_name]','$_POST[book_author]',$_POST[student_id],1,'$_POST[issue_date]')";
-  $query_run = mysqli_query($connection, $query);
-  header("Location:view_issued_book.php"); 
-}
-?>
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -17,7 +5,7 @@ if (isset($_POST['issue_book'])) {
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link rel="stylesheet" href="../css/admin.css" />
-  <title>PUP Library</title>
+  <title>PUP Library - Issue Book</title>
 </head>
 
 <body>
@@ -29,44 +17,37 @@ if (isset($_POST['issue_book'])) {
         <h1>Issue Book</h1>
       </div>
       <div class="card-body">
-        <form action="" method="post">
+        <form action="process_issue_book.php" method="post">
           <div class="form-group">
             <label for="book_name">Book Name:</label>
-            <input type="text" name="book_name" class="form-control" required>
-          </div>
-          <div class="form-group">
-            <label for="book_author">Author ID:</label>
-            <select class="form-control" name="book_author">
-              <option>-Select author-</option>
+            <select name="book_name" class="form-control" required>
+              <option value="">- Select Book -</option>
               <?php
               $connection = mysqli_connect("localhost", "admin", "password");
               $db = mysqli_select_db($connection, "lms");
-              $query = "select author_name from authors";
-              $query_run = mysqli_query($connection, $query);
-              while ($row = mysqli_fetch_assoc($query_run)) {
-                ?>
-                <option>
-                  <?php echo $row['author_name']; ?>
-                </option>
-                <?php
+
+              $bookQuery = "SELECT book_no, book_name FROM books";
+              $bookResult = mysqli_query($connection, $bookQuery);
+
+              while ($bookRow = mysqli_fetch_assoc($bookResult)) {
+                echo "<option value='" . $bookRow['book_no'] . "'>" . $bookRow['book_name'] . "</option>";
               }
               ?>
             </select>
           </div>
           <div class="form-group">
-            <label for="book_no">Book Number:</label>
-            <input type="text" name="book_no" class="form-control" required>
-          </div>
-          <div class="form-group">
             <label for="student_id">Student ID:</label>
             <input type="text" name="student_id" class="form-control" required>
           </div>
-          <div class="form-group">
-            <label for="issue_date">Issue Date:</label>
-            <input type="date" name="issue_date" class="form-control" value="<?php echo date("mm-dd-yyyy"); ?>" required>
-          </div>
           <button type="submit" name="issue_book" class="btn btn-primary">Issue Book</button>
         </form>
+
+        <?php
+        if (isset($_GET['message'])) {
+          $message = urldecode($_GET['message']);
+          echo "<p class='message'>$message</p>";
+        }
+        ?>
       </div>
     </div>
   </div>
