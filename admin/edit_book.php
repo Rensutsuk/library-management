@@ -8,7 +8,7 @@ $book_no = "";
 $author_id = "";
 $cat_id = "";
 $book_price = "";
-$query = "select * from books where book_id = $_GET[book_id]";
+$query = "SELECT * FROM books WHERE book_id = $_GET[book_id]";
 $query_run = mysqli_query($connection, $query);
 while ($row = mysqli_fetch_assoc($query_run)) {
   $book_name = $row['book_name'];
@@ -19,11 +19,20 @@ while ($row = mysqli_fetch_assoc($query_run)) {
 }
 
 if (isset($_POST['update'])) {
-  $connection = mysqli_connect("localhost", "admin", "password");
-  $db = mysqli_select_db($connection, "lms");
-  $query = "update books set book_name = '$_POST[book_name]',author_id = $_POST[author_id],cat_id = $_POST[cat_id],book_price = $_POST[book_price] where book_no = $_GET[bn]";
-  $query_run = mysqli_query($connection, $query);
-  header("location:manage_book.php");
+  // Check for duplicate book name
+  $check_query = "SELECT * FROM books WHERE book_name = '$_POST[book_name]' AND book_id != $_GET[book_id]";
+  $check_result = mysqli_query($connection, $check_query);
+  if (mysqli_num_rows($check_result) > 0) {
+    echo "<script>alert('Error: Book name already exists.');</script>";
+  } else {
+    $update_query = "UPDATE books SET book_name = '$_POST[book_name]', author_id = $_POST[author_id], cat_id = $_POST[cat_id], book_price = $_POST[book_price] WHERE book_id = $_GET[book_id]";
+    $update_result = mysqli_query($connection, $update_query);
+    if ($update_result) {
+      header("location:manage_book.php");
+    } else {
+      echo "<script>alert('Error updating book.');</script>";
+    }
+  }
 }
 ?>
 
