@@ -58,8 +58,7 @@
           exit(); // Ensure that the script stops execution after redirect
         } else {
           ?>
-          <br><br>
-          <center><span class="alert-danger">Wrong Password !!</span></center>
+          <script>alert("Invalid email or password.");</script>
           <?php
         }
       }

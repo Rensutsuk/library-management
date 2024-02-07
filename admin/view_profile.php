@@ -1,20 +1,28 @@
 <?php
 session_start();
-require("functions.php"); 
-#fetch data from database 
+
 $connection = mysqli_connect("localhost", "admin", "password");
 $db = mysqli_select_db($connection, "lms");
+
 $name = "";
 $email = "";
 $mobile = "";
-$query = "select * from admins where email = '$_SESSION[admin_email]'";
-$query_run = mysqli_query($connection, $query);
-while ($row = mysqli_fetch_assoc($query_run)) {
+$address = "";
+
+$query = "SELECT * FROM admins WHERE email = ?";
+$stmt = mysqli_prepare($connection, $query);
+mysqli_stmt_bind_param($stmt, "s", $_SESSION['admin_email']);
+mysqli_stmt_execute($stmt);
+$result = mysqli_stmt_get_result($stmt);
+
+while ($row = mysqli_fetch_assoc($result)) {
   $name = $row['name'];
   $email = $row['email'];
   $mobile = $row['mobile'];
   $address = $row['address'];
 }
+mysqli_stmt_close($stmt);
+mysqli_close($connection);
 ?>
 
 <!DOCTYPE html>

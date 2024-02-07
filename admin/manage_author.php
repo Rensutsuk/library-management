@@ -14,12 +14,6 @@ session_start();
   <script src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
   <script src="https://kit.fontawesome.com/999878f824.js" crossorigin="anonymous"></script>
   <title>PUP Library</title>
-
-  <script>
-    $(document).ready(function () {
-      $('#myTable').DataTable({});
-    });
-  </script>
 </head>
 
 <body>
@@ -61,11 +55,12 @@ session_start();
                     <?php echo $row['author_name']; ?>
                   </td>
                   <td>
-                  <button class="btn edit-btn" data-auth-id="<?php echo $row['author_id']; ?>">
-    <i class="fa-solid fa-pen-to-square"></i>
-</button>
-                    <button class="btn"><a href="delete_author.php?auth_id=<?php echo $row['author_id']; ?>">
-                        <i class="fa-solid fa-trash"></i></a></button>
+                    <button class="btn edit-btn" data-auth-id="<?php echo $row['author_id']; ?>">
+                      <i class="fa-solid fa-pen-to-square"></i>
+                    </button>
+                    <button class="btn delete-btn" data-auth-id="<?php echo $row['author_id']; ?>">
+                      <i class="fa-solid fa-trash"></i>
+                    </button>
                   </td>
                 </tr>
                 <?php
@@ -80,18 +75,24 @@ session_start();
 </body>
 
 <script>
-    $(document).ready(function() {
-        // Handle click event for edit button
-        $('.edit-btn').click(function(e) {
-            e.preventDefault(); // Prevent default action (following the link)
-
-            // Get the author ID from data attribute
-            var authId = $(this).data('auth-id');
-
-            // Redirect to edit_author.php with the author ID
-            window.location.href = 'edit_author.php?auth_id=' + authId;
-        });
+  $(document).ready(function () {
+    $('.edit-btn').click(function (e) {
+      e.preventDefault();
+      var authId = $(this).data('auth-id');
+      window.location.href = 'edit_author.php?auth_id=' + authId;
     });
+
+    $('.delete-btn').click(function (e) {
+      e.preventDefault();
+      var authId = $(this).data('auth-id');
+      window.location.href = 'delete_author.php?auth_id=' + authId;
+    });
+
+    $(document).ready(function () {
+      $('#myTable').DataTable({});
+    });
+
+  });
 </script>
 
 <?php include('../includes/footer.php'); ?>

@@ -53,7 +53,7 @@ function get_issue_book_count()
     $db = mysqli_select_db($connection, "lms");
     $issue_book_count = 0;
 
-    $query = "SELECT COUNT(*) AS issue_book_count FROM issued_books";
+    $query = "SELECT COUNT(*) AS issue_book_count FROM issued_books WHERE status = 1";
     $stmt = mysqli_prepare($connection, $query);
     mysqli_stmt_execute($stmt);
     mysqli_stmt_bind_result($stmt, $issue_book_count);

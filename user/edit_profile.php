@@ -1,20 +1,40 @@
 <?php
 session_start();
-#fetch data from database 
+
 $connection = mysqli_connect("localhost", "admin", "password");
-$db = mysqli_select_db($connection, "lms");
+if (!$connection) {
+  die("Database connection failed: " . mysqli_connect_error());
+}
+
+$db_selected = mysqli_select_db($connection, "lms");
+if (!$db_selected) {
+  die("Database selection failed: " . mysqli_error($connection));
+}
+
 $name = "";
 $email = "";
 $mobile = "";
 $address = "";
-$query = "select * from users where email = '$_SESSION[email]'";
-$query_run = mysqli_query($connection, $query);
-while ($row = mysqli_fetch_assoc($query_run)) {
-  $name = $row['name'];
-  $email = $row['email'];
-  $mobile = $row['mobile'];
-  $address = $row['address'];
+
+$query = "SELECT name, email, mobile, address FROM users WHERE email = ?";
+$stmt = mysqli_prepare($connection, $query);
+
+if ($stmt) {
+  mysqli_stmt_bind_param($stmt, "s", $_SESSION['email']);
+
+  if (mysqli_stmt_execute($stmt)) {
+    mysqli_stmt_store_result($stmt);
+    mysqli_stmt_bind_result($stmt, $name, $email, $mobile, $address);
+    mysqli_stmt_fetch($stmt);
+    mysqli_stmt_free_result($stmt);
+  } else {
+    die("Query execution failed: " . mysqli_stmt_error($stmt));
+  }
+  mysqli_stmt_close($stmt);
+} else {
+  die("Query preparation failed: " . mysqli_error($connection));
 }
+mysqli_close($connection);
 ?>
 
 <!DOCTYPE html>
@@ -38,19 +58,20 @@ while ($row = mysqli_fetch_assoc($query_run)) {
       <form action="update.php" method="post">
         <div class="form-group">
           <label for="name">Name:</label>
-          <input type="text" class="form-control" name="name" value="<?php echo $name; ?>">
+          <input type="text" class="form-control" name="name" value="<?php echo htmlspecialchars($name); ?>">
         </div>
         <div class="form-group">
           <label for="email">Email:</label>
-          <input type="text" name="email" class="form-control" value="<?php echo $email; ?>">
+          <input type="text" name="email" class="form-control" value="<?php echo htmlspecialchars($email); ?>">
         </div>
         <div class="form-group">
           <label for="mobile">Mobile:</label>
-          <input type="text" name="mobile" class="form-control" value="<?php echo $mobile; ?>">
+          <input type="text" name="mobile" class="form-control" value="<?php echo htmlspecialchars($mobile); ?>">
         </div>
         <div class="form-group">
           <label for="address">Address:</label>
-          <textarea rows="3" cols="40" name="address" class="form-control"><?php echo $address; ?></textarea>
+          <textarea rows="3" cols="40" name="address"
+            class="form-control"><?php echo htmlspecialchars($address); ?></textarea>
         </div>
         <button type="submit" name="update">Update</button>
       </form>

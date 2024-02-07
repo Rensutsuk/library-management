@@ -1,3 +1,7 @@
+<?php 
+session_start();
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -37,7 +41,17 @@
           </div>
           <div class="form-group">
             <label for="student_id">Student ID:</label>
-            <input type="text" name="student_id" class="form-control" required>
+            <select name="student_id" class="form-control" required>
+              <option value="">- Select Student -</option>
+              <?php
+              $studentQuery = "SELECT id, name FROM users";
+              $studentResult = mysqli_query($connection, $studentQuery);
+
+              while ($studentRow = mysqli_fetch_assoc($studentResult)) {
+                echo "<option value='" . $studentRow['id'] . "'>" . $studentRow['name'] . "</option>";
+              }
+              ?>
+            </select>
           </div>
           <button type="submit" name="issue_book" class="btn btn-primary">Issue Book</button>
         </form>

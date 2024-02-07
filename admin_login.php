@@ -56,8 +56,7 @@
           exit();
         } else {
           ?>
-          <br><br>
-          <center><span class="alert-danger">Wrong Password !!</span></center>
+          <script>alert("Invalid password!");</script>
           <?php
         }
       }

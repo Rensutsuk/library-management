@@ -4,27 +4,29 @@ session_start();
 if (isset($_POST['add_cat'])) {
   $connection = mysqli_connect("localhost", "admin", "password");
   $db = mysqli_select_db($connection, "lms");
-
-  // Validate and sanitize user input
   $cat_name = mysqli_real_escape_string($connection, $_POST['cat_name']);
 
-  // Insert data into the category table
-  $query = "INSERT INTO category (cat_name) VALUES ('$cat_name')";
-  $query_run = mysqli_query($connection, $query);
+  $checkQuery = "SELECT * FROM category WHERE cat_name = '$cat_name'";
+  $checkResult = mysqli_query($connection, $checkQuery);
 
-  // Check for errors
-  if ($query_run) {
-    // Query executed successfully
-    header("Location: manage_cat.php");
-    exit();
+  if (mysqli_num_rows($checkResult) > 0) {
+    echo '<script>alert("Category already exists.");</script>';
   } else {
-    // Error in query execution
-    echo "Error adding category: " . mysqli_error($connection);
+    $query = "INSERT INTO category (cat_name) VALUES ('$cat_name')";
+    $query_run = mysqli_query($connection, $query);
+
+    if ($query_run) {
+      echo '<script>alert("Category added successfully.");</script>';
+      header("Location: Regcat.php");
+      exit();
+    } else {
+      echo '<script>alert("Error adding category.");</script>';
+    }
   }
-  // Close the connection
   mysqli_close($connection);
 }
 ?>
+
 
 <!DOCTYPE html>
 <html lang="en">

@@ -34,20 +34,12 @@ mysqli_stmt_bind_result($stmt, $book_name, $book_no, $book_price, $author_name);
 </head>
 
 <body>
-  <?php include('admin_navbar.php') ?>
+  <?php include('user_navbar.php') ?>
 
   <div class="content">
     <div class="card">
       <div class="card-header">
-        <h1>Registered Books Detail</h1>
-        <div class="header-button">
-          <a href="add_book.php">
-            <i class="fa-solid fa-plus"></i>
-          </a>
-          <a href="manage_book.php">
-            <i class="fa-solid fa-pen-to-square"></i>
-          </a>
-        </div>
+        <h1>Book Catalouge</h1>
       </div>
       <div class="card-body">
         <form>

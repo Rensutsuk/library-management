@@ -46,7 +46,7 @@ session_start();
   <script type="text/javascript">
     function alertMsg(message) {
       alert(message);
-      window.location.href = "admin_dashboard.php";
+      window.location.href = "Regbooks.php";
     }
   </script>
   <title>PUP Library</title>

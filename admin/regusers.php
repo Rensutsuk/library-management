@@ -17,12 +17,6 @@ $query = "select * from users";
   <script src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
   <script src="https://kit.fontawesome.com/999878f824.js" crossorigin="anonymous"></script>
   <title>PUP Library</title>
-
-  <script>
-    $(document).ready(function () {
-      $('#myTable').DataTable({});
-    });
-  </script>
 </head>
 
 <body>
@@ -68,8 +62,9 @@ $query = "select * from users";
                   <?php echo $address; ?>
                 </td>
                 <td>
-                  <button class="btn"><a href="delete_user.php?id=<?php echo $row['id']; ?>">
-                      <i class="fa-solid fa-trash"></i></a></button>
+                  <button class="btn delete-btn" data-user-id="<?php echo $id; ?>">
+                    <i class="fa-solid fa-trash"></i>
+                  </button>
                 </td>
               </tr>
               <?php
@@ -81,6 +76,19 @@ $query = "select * from users";
     </div>
   </div>
 </body>
+
+<script>
+  $(document).ready(function () {
+    $('#myTable').DataTable({});
+
+    $('.delete-btn').on('click', function () {
+      var userId = $(this).data('user-id');
+      if (confirm('Are you sure you want to delete this user?')) {
+        window.location.href = 'delete_user.php?id=' + userId;
+      }
+    });
+  });
+</script>
 
 <?php include('../includes/footer.php'); ?>
 

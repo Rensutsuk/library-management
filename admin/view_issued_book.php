@@ -3,7 +3,7 @@ session_start();
 #fetch data from database 
 $connection = mysqli_connect("localhost", "admin", "password");
 $db = mysqli_select_db($connection, "lms");
-$query = "select issued_books.s_no, issued_books.book_name,issued_books.book_author,issued_books.book_no,users.name from issued_books left join users on issued_books.student_id = users.id where issued_books.status = 1";
+$query = "select issued_books.s_no, issued_books.book_name,issued_books.book_author,issued_books.book_no,users.name, issued_books.issue_date from issued_books left join users on issued_books.student_id = users.id where issued_books.status = 1";
 ?>
 
 <!DOCTYPE html>
@@ -47,6 +47,7 @@ $query = "select issued_books.s_no, issued_books.book_name,issued_books.book_aut
                 <th>Author</th>
                 <th>Number</th>
                 <th>Student Name</th>
+                <th>Issue Date</th>
                 <th>Return Book</th>
               </tr>
             </thead>
@@ -70,6 +71,9 @@ $query = "select issued_books.s_no, issued_books.book_name,issued_books.book_aut
                   </td>
                   <td>
                     <?php echo $row['name']; ?>
+                  </td>
+                  <td>
+                    <?php echo $row['issue_date']; ?>
                   </td>
                   <td>
                     <button onclick="returnBook(<?php echo $row['s_no']; ?>)">

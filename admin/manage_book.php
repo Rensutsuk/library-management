@@ -14,12 +14,6 @@ session_start();
   <script src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
   <script src="https://kit.fontawesome.com/999878f824.js" crossorigin="anonymous"></script>
   <title>PUP Library</title>
-
-  <script>
-    $(document).ready(function () {
-      $('#myTable').DataTable({});
-    });
-  </script>
 </head>
 
 <body>
@@ -47,17 +41,17 @@ session_start();
               <th>Action</th>
             </tr>
           </thead>
-          <?php
-          $connection = mysqli_connect("localhost", "admin", "password");
-          $db = mysqli_select_db($connection, "lms");
-          $query = "SELECT books.*, authors.author_name, category.cat_name
-                FROM books 
-                INNER JOIN authors ON books.author_id = authors.author_id 
-                INNER JOIN category ON books.cat_id = category.cat_id";
-          $query_run = mysqli_query($connection, $query);
-          while ($row = mysqli_fetch_assoc($query_run)) {
-            ?>
-            <tbody>
+          <tbody>
+            <?php
+            $connection = mysqli_connect("localhost", "admin", "password");
+            $db = mysqli_select_db($connection, "lms");
+            $query = "SELECT books.*, authors.author_name, category.cat_name
+                      FROM books 
+                      INNER JOIN authors ON books.author_id = authors.author_id 
+                      INNER JOIN category ON books.cat_id = category.cat_id";
+            $query_run = mysqli_query($connection, $query);
+            while ($row = mysqli_fetch_assoc($query_run)) {
+              ?>
               <tr>
                 <td>
                   <?php echo $row['book_name']; ?>
@@ -75,21 +69,39 @@ session_start();
                   <?php echo $row['book_price']; ?>
                 </td>
                 <td>
-                  <button class="btn" name=""><a href="edit_book.php?book_id=<?php echo $row['book_id']; ?>">
-                      <i class="fa-solid fa-pen-to-square"></i></a></button>
-                  <button class="btn"><a href="delete_book.php?book_id=<?php echo $row['book_id']; ?>">
-                      <i class="fa-solid fa-trash"></i></a></button>
+                  <button class="btn edit-btn" data-book-id="<?php echo $row['book_id']; ?>">
+                    <i class="fa-solid fa-pen-to-square"></i>
+                  </button>
+                  <button class="btn delete-btn" data-book-id="<?php echo $row['book_id']; ?>">
+                    <i class="fa-solid fa-trash"></i>
+                  </button>
                 </td>
               </tr>
-            </tbody>
-            <?php
-          }
-          ?>
+              <?php
+            }
+            ?>
+          </tbody>
         </table>
       </div>
     </div>
   </div>
 </body>
+
+<script>
+  $(document).ready(function () {
+    $('#myTable').DataTable({});
+
+    $('.edit-btn').click(function () {
+      var bookId = $(this).data('book-id');
+      window.location.href = 'edit_book.php?book_id=' + bookId;
+    });
+
+    $('.delete-btn').click(function () {
+      var bookId = $(this).data('book-id');
+      window.location.href = 'delete_book.php?book_id=' + bookId;
+    });
+  });
+</script>
 
 <?php include('../includes/footer.php'); ?>
 

@@ -18,6 +18,14 @@ $password = mysqli_real_escape_string($connection, $_POST['password']);
 $mobile = mysqli_real_escape_string($connection, $_POST['mobile']);
 $address = mysqli_real_escape_string($connection, $_POST['address']);
 
+$checkQuery = "SELECT COUNT(*) AS count FROM users WHERE name = '$name'";
+$checkResult = mysqli_query($connection, $checkQuery);
+$checkRow = mysqli_fetch_assoc($checkResult);
+if ($checkRow['count'] > 0) {
+    echo '<script>alert("User with the same name already exists.");window.location.href = "../signup.php";</script>';
+    exit();
+}
+
 $stmt = mysqli_prepare($connection, "INSERT INTO users (name, email, password, mobile, address) VALUES (?, ?, ?, ?, ?)");
 mysqli_stmt_bind_param($stmt, "sssss", $name, $email, $password, $mobile, $address);
 
